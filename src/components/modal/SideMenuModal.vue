@@ -28,7 +28,6 @@ function close() {
 }
 
 onMounted(() => {
-  console.log('test')
   isOpen.value = true;
   openModal();
 })
