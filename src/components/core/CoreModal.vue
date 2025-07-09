@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useCoreStore } from '@/stores/core';
 import { storeToRefs } from 'pinia';
 import { watch } from 'vue';
@@ -14,19 +14,22 @@ watch(modalActive, () => {
 </script>
 
 <template>
-  <Transition>
-    <div 
-      v-if="modalActive"
-      class="app-modal"
-    >
-      <slot />
-    </div>
-  </Transition>
+  <Teleport to="body">
+    <Transition>
+      <div 
+        v-show="modalActive"
+        class="app-modal"
+      >
+        <slot />
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped lang="scss">
 .app-modal {
   position: fixed;
+  inset: 0;
   width: 100%;
   height: 100%;
   backdrop-filter: blur(2px);
