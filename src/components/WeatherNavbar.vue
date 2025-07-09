@@ -10,6 +10,8 @@ const { weather } = storeToRefs(weatherStore);
 defineProps<{
   menuOpen: boolean
 }>();
+
+defineEmits(["menuButton"]);
 </script>
 
 <template>
@@ -28,7 +30,7 @@ defineProps<{
           'navbar__menu-button--day' : weather?.current?.is_day,
           'navbar__menu-button--active' : menuOpen
         }"
-        @click="!menuOpen"
+        @click="$emit('menuButton')"
       >
         <font-awesome-icon
           :icon="['fas', 'gear']"

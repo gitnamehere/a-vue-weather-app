@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 
@@ -9,11 +9,14 @@ import DailyWeather from "@/components/weather/DailyWeather.vue";
 import HourlyWeather from "@/components/weather/HourlyWeather.vue";
 import WeatherGrid from "@/components/weather/WeatherGrid.vue";
 import WeatherNavbar from "@/components/WeatherNavbar.vue";
+import SideMenuModal from "@/components/modal/SideMenuModal.vue";
 
 const weatherStore = useWeatherStore();
 const { error, weather } = storeToRefs(weatherStore);
 
 const route = useRoute();
+
+const menuOpen = ref(false);
 
 function getRouteFromParams() {
   // route.params.location has a type of <string | string[]>, so convert the string (most likely not a string array here)
@@ -23,6 +26,10 @@ function getRouteFromParams() {
   if (!location) return;
 
   weatherStore.getWeatherByName(location);
+}
+
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value;
 }
 
 onMounted(() => {
@@ -36,7 +43,10 @@ onMounted(() => {
     class="weather"
     :class="weather?.current?.is_day ? 'weather--day' : 'weather--night'"
   >
-    <WeatherNavbar />
+    <WeatherNavbar
+      :menu-open="menuOpen"
+      @menu-button="toggleMenu"
+    />
     <div
       v-if="weather?.current"
       class="weather__container"
@@ -61,6 +71,11 @@ onMounted(() => {
         Enter in a location to get weather data
       </h1>
     </div>
+    <SideMenuModal
+      :is-open="menuOpen"
+      menu-style="glass"
+      @close="toggleMenu"
+    />
     <footer class="weather__footer">
       <p>Under development</p>
       <a href="https://open-meteo.com/">
