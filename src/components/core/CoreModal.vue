@@ -18,7 +18,7 @@ watch(modalActive, () => {
     <Transition>
       <div 
         v-show="modalActive"
-        class="app-modal"
+        class="core-modal"
       >
         <slot />
       </div>
@@ -27,7 +27,7 @@ watch(modalActive, () => {
 </template>
 
 <style scoped lang="scss">
-.app-modal {
+.core-modal {
   position: fixed;
   inset: 0;
   width: 100%;
