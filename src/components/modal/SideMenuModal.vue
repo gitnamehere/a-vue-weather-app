@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia';
 import { useCoreStore } from '@/stores/core';
 import { useWeatherStore } from '@/stores/weather';
 import { onMounted, ref } from 'vue';
+import CoreModal from '@/components/core/CoreModal.vue';
 
 const { openModal, closeModal } = useCoreStore();
 const weatherStore = useWeatherStore();
@@ -34,7 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Teleport to="body">
+  <CoreModal>
     <Transition>
       <div
         v-if="isOpen"
@@ -58,7 +59,7 @@ onMounted(() => {
         </div>
       </div>
     </Transition>
-  </Teleport>
+  </CoreModal>
 </template>
 
 <style lang="scss">
