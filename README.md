@@ -1,8 +1,6 @@
-# VueWeatherApp
+# A Vue Weather App
 
 A (not really) short project to learn Vue.js.
-
-(Honestly it's more of a CSS practice)
 
 [Github Pages](https://gitnamehere.github.io/vue-weather-app/)
 
