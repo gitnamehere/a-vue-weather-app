@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
+import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
-import { useWeatherStore } from "@/stores/weather";
+import SideMenuModal from "@/components/modal/SideMenuModal.vue";
 import CurrentWeather from "@/components/weather/CurrentWeather.vue";
 import DailyWeather from "@/components/weather/DailyWeather.vue";
 import HourlyWeather from "@/components/weather/HourlyWeather.vue";
 import WeatherGrid from "@/components/weather/WeatherGrid.vue";
 import WeatherNavbar from "@/components/WeatherNavbar.vue";
-import SideMenuModal from "@/components/modal/SideMenuModal.vue";
+import { useWeatherStore } from "@/stores/weather";
 
 const weatherStore = useWeatherStore();
-const { error, weather } = storeToRefs(weatherStore);
+const { error, isDay, weather } = storeToRefs(weatherStore);
 
 const route = useRoute();
 
@@ -36,12 +36,18 @@ onMounted(() => {
   window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading somewhere in the middle of the page on mobile devices
   getRouteFromParams();
 });
+
+watch(isDay, () => {
+  document.body.style.backgroundColor = isDay.value
+    ? "#2885dd"
+    : "#111128";
+});
 </script>
 
 <template>
   <div
     class="weather"
-    :class="weather?.current?.is_day ? 'weather--day' : 'weather--night'"
+    :class="isDay ? 'weather--day' : 'weather--night'"
   >
     <WeatherNavbar
       :menu-open="menuOpen"
@@ -72,7 +78,7 @@ onMounted(() => {
       </h1>
     </div>
     <SideMenuModal
-      :is-open="menuOpen"
+      v-if="menuOpen"
       menu-style="glass"
       @close="toggleMenu"
     />
