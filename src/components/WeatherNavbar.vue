@@ -105,6 +105,8 @@ defineEmits(["menuButton"]);
     color: #FFF;
     background-color: #3382;
 
+    aspect-ratio: 1;
+
     transition: 0.25s ease;
 
     &:hover:not(&--active) {
