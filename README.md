@@ -1,10 +1,8 @@
-# VueWeatherApp
+# A Vue Weather App
 
 A (not really) short project to learn Vue.js.
 
-(Honestly it's more of a CSS practice)
-
-[Github Pages](https://gitnamehere.github.io/vue-weather-app/)
+[Github Pages](https://gitnamehere.github.io/a-vue-weather-app/)
 
 This project uses Open-Meteo to source weather and geocoding data https://open-meteo.com/
 
@@ -19,6 +17,6 @@ yarn
 
 ## Starting the Vite Server
 
-```sh 
+```sh
 yarn vite
 ```
