@@ -2,7 +2,7 @@
 
 A (not really) short project to learn Vue.js.
 
-[Github Pages](https://gitnamehere.github.io/vue-weather-app/)
+[Github Pages](https://gitnamehere.github.io/a-vue-weather-app/)
 
 This project uses Open-Meteo to source weather and geocoding data https://open-meteo.com/
 
@@ -17,6 +17,6 @@ yarn
 
 ## Starting the Vite Server
 
-```sh 
+```sh
 yarn vite
 ```
