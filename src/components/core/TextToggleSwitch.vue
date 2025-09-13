@@ -9,7 +9,7 @@ const emit = defineEmits(["toggle"]);
 </script>
 
 <template>
-  <div
+  <button
     class="toggle"
     @click="emit('toggle')"
   >
@@ -31,7 +31,7 @@ const emit = defineEmits(["toggle"]);
         {{ rightText }}
       </div>
     </div>
-  </div>
+  </button>
 </template>
 
 <style scoped lang="scss">
@@ -70,6 +70,7 @@ const emit = defineEmits(["toggle"]);
     min-width: 32px;
     padding: 0 8px;
     text-align: center;
+    line-height: 24px;
     z-index: 2;
     color: white;
 
