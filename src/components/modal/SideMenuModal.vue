@@ -72,7 +72,7 @@ onMounted(() => {
   </CoreModal>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .side-menu-modal {
   display: flex;
   flex-direction: column;
@@ -86,6 +86,7 @@ onMounted(() => {
   background-color: #3382;
 
   z-index: 100;
+  user-select: none;
 
   @media (min-width: 576px) {
     width: 384px;
