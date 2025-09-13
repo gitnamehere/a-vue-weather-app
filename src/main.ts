@@ -8,9 +8,9 @@ import "@/assets/scss/main.scss";
 import "@/assets/weather-icons/css/weather-icons.min.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faMagnifyingGlass, faWind, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faWind, faGear, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faMagnifyingGlass, faWind, faGear);
+library.add(faMagnifyingGlass, faWind, faGear, faXmark);
 
 const app = createApp(App).component("font-awesome-icon", FontAwesomeIcon);
 

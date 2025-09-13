@@ -4,6 +4,8 @@ import { useCoreStore } from '@/stores/core';
 import { useWeatherStore } from '@/stores/weather';
 import { onMounted, ref } from 'vue';
 import CoreModal from '@/components/core/CoreModal.vue';
+import TextToggleSwitch from '@/components/core/TextToggleSwitch.vue';
+import { TemperatureUnits } from '@/utils/constants';
 
 const { openModal, closeModal } = useCoreStore();
 const weatherStore = useWeatherStore();
@@ -42,20 +44,28 @@ onMounted(() => {
         class="side-menu-modal"
         :class="{'side-menu-modal--glass' : menuStyle === 'glass'}"
       >
-        <!-- TODO: move settings into a different file -->
         <div class="side-menu-modal__head">
           <span class="side-menu-modal__title">Settings</span>
           <button
             class="side-menu-modal__close-button"
             @click="close"
           >
-            close
+            <font-awesome-icon
+              :icon="['fas', 'xmark']"
+              size="xl"
+            />
           </button>
         </div>
         <div class="side-menu-modal__body">
-          <button @click="weatherStore.toggleTemperatureUnit">
-            {{ temperatureUnit }}
-          </button>
+          <div class="side-menu-modal__list-item">
+            <label>Temperature Unit</label>
+            <TextToggleSwitch
+              :is-on="temperatureUnit === TemperatureUnits.FAHRENHEIT"
+              left-text="Celsius"
+              right-text="Fahrenheit"
+              @toggle="weatherStore.toggleTemperatureUnit"
+            />
+          </div>
         </div>
       </div>
     </Transition>
@@ -71,6 +81,7 @@ onMounted(() => {
   right: 0;
   width: 100vw;
   height: 100vh;
+  padding: 16px;
 
   background-color: #3382;
 
@@ -86,12 +97,71 @@ onMounted(() => {
     border: 1px solid #3382;
   }
 
+  &__head {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+  }
+
   &__title {
-    width: 90%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    height: 40px;
+    margin-right: 16px;
+    border-radius: 16px;
+    padding: 0 16px;
+    background-color: #3387;
+
+    line-height: 32px;
+    font-weight: 500;
+    font-size: 24px;
+    color: #f8f8f8;
   }
 
   &__close-button {
-    width: 10%;
+    margin: auto;
+    margin-right: 0;
+
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 16px;
+
+    color: #FFF;
+    background-color: #3387;
+
+    aspect-ratio: 1;
+
+    transition: 0.25s ease;
+
+    &:hover {
+      background-color: #FFF;
+      color: #1d104b;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+
+    border-radius: 16px;
+    background-color: #3387;
+  }
+
+  &__list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 8px 0;
   }
 }
 
