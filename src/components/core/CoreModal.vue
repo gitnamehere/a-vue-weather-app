@@ -32,8 +32,16 @@ watch(modalActive, () => {
   inset: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(8px);
   z-index: 10;
+
+  @media (min-width: 576px) {
+    backdrop-filter: blur(4px);
+  }
+
+  @media (min-width: 1024px) {
+    backdrop-filter: blur(2px);
+  }
 }
 
 .v-enter-active,
