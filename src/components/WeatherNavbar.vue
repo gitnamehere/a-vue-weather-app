@@ -2,11 +2,16 @@
 import { storeToRefs } from "pinia";
 
 import { useWeatherStore } from "@/stores/weather";
-import { TemperatureUnits } from "@/utils/constants";
 import Searchbar from "@/components/LocationSearchbar.vue";
 
 const weatherStore = useWeatherStore();
-const { temperatureUnit, weather } = storeToRefs(weatherStore);
+const { weather } = storeToRefs(weatherStore);
+
+defineProps<{
+  menuOpen: boolean
+}>();
+
+defineEmits(["menuButton"]);
 </script>
 
 <template>
@@ -21,9 +26,16 @@ const { temperatureUnit, weather } = storeToRefs(weatherStore);
       <Searchbar class="navbar__search-bar" />
       <button
         class="navbar__menu-button"
-        @click="weatherStore.toggleTemperatureUnit"
+        :class="{ 
+          'navbar__menu-button--day' : weather?.current?.is_day,
+          'navbar__menu-button--active' : menuOpen
+        }"
+        @click="$emit('menuButton')"
       >
-        {{ temperatureUnit === TemperatureUnits.FAHRENHEIT ? "F" : "C" }}
+        <font-awesome-icon
+          :icon="['fas', 'gear']"
+          size="xl"
+        />
       </button>
     </div>
   </div>
@@ -88,7 +100,28 @@ const { temperatureUnit, weather } = storeToRefs(weatherStore);
     height: 40px;
     width: 40px;
     border-radius: 16px;
-    border: none;
+    border: 1px solid #ccc;
+
+    color: #FFF;
+    background-color: #3382;
+
+    aspect-ratio: 1;
+
+    transition: 0.25s ease;
+
+    &:hover:not(&--active) {
+      background-color: #FFF;
+      color: #1d104b;
+    }
+
+    &--active {
+      background-color: #FFF;
+      color: #1d104b;
+
+      &:hover {
+        color: #2885dd;
+      }
+    }
   }
 }
 </style>

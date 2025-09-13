@@ -16,6 +16,7 @@ export const useWeatherStore = defineStore("weather", () => {
   const weatherConditions = ref<WeatherConditions>(); // This will be a JSON object for the current weather conditions, using parseWeatherCode()
   const locations = ref();
   const error = ref(false);
+  const isDay = ref(false);
 
   const toggleTemperatureUnit = () => {
     temperatureUnit.value =
@@ -72,6 +73,7 @@ export const useWeatherStore = defineStore("weather", () => {
         code: weather.value.current.weather_code,
         isDay: weather.value.current.is_day
       });
+      isDay.value = weather.value.current.is_day;
     } catch (err) {
       console.log(err);
       error.value = true;
@@ -88,6 +90,7 @@ export const useWeatherStore = defineStore("weather", () => {
     geocoding,
     weatherConditions,
     toggleTemperatureUnit,
+    isDay,
     getWeatherByName,
     getWeatherByGeocoding,
     getLocations,

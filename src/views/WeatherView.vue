@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
+import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
-import { useWeatherStore } from "@/stores/weather";
+import SideMenuModal from "@/components/modal/SideMenuModal.vue";
 import CurrentWeather from "@/components/weather/CurrentWeather.vue";
 import DailyWeather from "@/components/weather/DailyWeather.vue";
 import HourlyWeather from "@/components/weather/HourlyWeather.vue";
 import WeatherGrid from "@/components/weather/WeatherGrid.vue";
 import WeatherNavbar from "@/components/WeatherNavbar.vue";
+import { useWeatherStore } from "@/stores/weather";
 
 const weatherStore = useWeatherStore();
-const { error, weather } = storeToRefs(weatherStore);
+const { error, isDay, weather } = storeToRefs(weatherStore);
 
 const route = useRoute();
+
+const menuOpen = ref(false);
 
 function getRouteFromParams() {
   // route.params.location has a type of <string | string[]>, so convert the string (most likely not a string array here)
@@ -25,18 +28,31 @@ function getRouteFromParams() {
   weatherStore.getWeatherByName(location);
 }
 
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value;
+}
+
 onMounted(() => {
   window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading somewhere in the middle of the page on mobile devices
   getRouteFromParams();
+});
+
+watch(isDay, () => {
+  document.body.style.backgroundColor = isDay.value
+    ? "#2885dd"
+    : "#111128";
 });
 </script>
 
 <template>
   <div
     class="weather"
-    :class="weather?.current?.is_day ? 'weather--day' : 'weather--night'"
+    :class="isDay ? 'weather--day' : 'weather--night'"
   >
-    <WeatherNavbar />
+    <WeatherNavbar
+      :menu-open="menuOpen"
+      @menu-button="toggleMenu"
+    />
     <div
       v-if="weather?.current"
       class="weather__container"
@@ -61,6 +77,11 @@ onMounted(() => {
         Enter in a location to get weather data
       </h1>
     </div>
+    <SideMenuModal
+      v-if="menuOpen"
+      menu-style="glass"
+      @close="toggleMenu"
+    />
     <footer class="weather__footer">
       <p>Under development</p>
       <a href="https://open-meteo.com/">
