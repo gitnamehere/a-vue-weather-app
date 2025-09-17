@@ -54,14 +54,14 @@ const emit = defineEmits(["toggle"]);
   &__switch {
     position: absolute;
     left: 4px;
-    width: 50%;
+    width: calc(50% - 4px);
     height: 24px;
     background-color: white;
     border-radius: 16px;
     transition: left 0.25s ease;
 
     &--active {
-      left: calc(50% - 4px);
+      left: calc(50%);
     }
   }
 
