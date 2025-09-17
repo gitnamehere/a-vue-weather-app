@@ -123,11 +123,11 @@ const getWeatherByLocation = (location: any) => {
     background-color: transparent;
 
     &--day {
-      color: #2885dd;
+      color: $color-day;
     }
 
     &--night {
-      color: #1d104b;
+      color: $color-night--secondary;
     }
   }
 

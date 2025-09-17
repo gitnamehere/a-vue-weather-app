@@ -47,7 +47,7 @@ function toggleCollapsed() {
   min-width: 152px;
   min-height: 24px;
   padding: 16px;
-  background-color: #3382;
+  background-color: $card-color--transparent;
 
   &--hollow {
     border: 2px solid #fff2;

@@ -52,7 +52,7 @@ defineEmits(["menuButton"]);
   height: 72px;
   padding: 8px 16px;
 
-  background: linear-gradient(#1d104b, transparent);
+  background: linear-gradient($color-night--secondary, transparent);
 
   animation: all 0.5s ease;
 
@@ -103,7 +103,7 @@ defineEmits(["menuButton"]);
     border: 1px solid #ccc;
 
     color: #FFF;
-    background-color: #3382;
+    background-color: $card-color--transparent;
 
     aspect-ratio: 1;
 
@@ -111,12 +111,12 @@ defineEmits(["menuButton"]);
 
     &:hover:not(&--active) {
       background-color: #FFF;
-      color: #1d104b;
+      color: $color-night--secondary;
     }
 
     &--active {
       background-color: #FFF;
-      color: #1d104b;
+      color: $color-night--secondary;
 
       &:hover {
         color: #2885dd;

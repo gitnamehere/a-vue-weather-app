@@ -83,7 +83,7 @@ onMounted(() => {
   height: 100vh;
   padding: 16px;
 
-  background-color: #3382;
+  background-color: $card-color--transparent;
 
   z-index: 100;
   user-select: none;
@@ -95,7 +95,7 @@ onMounted(() => {
   &--glass {
     background-color: none;
     backdrop-filter: blur(4px);
-    border: 1px solid #3382;
+    border: 1px solid $card-color--transparent;
   }
 
   &__head {
@@ -140,7 +140,7 @@ onMounted(() => {
 
     &:hover {
       background-color: #FFF;
-      color: #1d104b;
+      color: $color-night--secondary;
     }
   }
 

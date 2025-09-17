@@ -46,6 +46,14 @@ const emit = defineEmits(["toggle"]);
   box-sizing: content-box;
   cursor: pointer;
 
+  &--day {
+    background-color: $color-day;
+  }
+
+  &--night {
+    background-color: $color-night;
+  }
+
   &__body {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -79,7 +87,7 @@ const emit = defineEmits(["toggle"]);
 
   &__left--active,
   &__right--active {
-    color: #338;
+    color: $color-night;
   }
 }
 </style>

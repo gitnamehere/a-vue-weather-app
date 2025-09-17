@@ -102,7 +102,7 @@ watch(isDay, () => {
 
   padding: 80px 0 16px;
 
-  color: #f8f8f8;
+  color: white;
   text-shadow: 0px 2px 8px #0004;
 
   animation: fadein 0.5s;
@@ -125,11 +125,11 @@ watch(isDay, () => {
   }
 
   &--day {
-    background-color: #2885dd;
+    background-color: $color-day;
   }
 
   &--night {
-    background-color: #111128;
+    background-color: $color-night;
   }
 
   &__footer {
