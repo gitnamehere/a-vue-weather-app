@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 
 import * as openMeteoService from "@/services/openMeteoWeatherService";
 import { parseWeatherCode, type WeatherConditions } from "@/utils/weatherCodes";
-import { TemperatureUnits } from "@/utils/constants";
+import { TemperatureUnits, WindSpeedUnits } from "@/utils/constants";
 
 // create weather store with setup syntax
 export const useWeatherStore = defineStore("weather", () => {
@@ -11,6 +11,7 @@ export const useWeatherStore = defineStore("weather", () => {
   const latitude = ref();
   const longitude = ref();
   const temperatureUnit = ref<TemperatureUnits>(TemperatureUnits.FAHRENHEIT);
+  const windSpeedUnit = ref<WindSpeedUnits>(WindSpeedUnits.MPH);
   const geocoding = ref();
   const weather = ref();
   const weatherConditions = ref<WeatherConditions>(); // This will be a JSON object for the current weather conditions, using parseWeatherCode()
@@ -26,6 +27,12 @@ export const useWeatherStore = defineStore("weather", () => {
 
     if (weather.value) fetchWeatherData(latitude.value, longitude.value);
   };
+
+  const setWindSpeedUnit = (unit: WindSpeedUnits) => {
+    windSpeedUnit.value = unit;
+
+    if (weather.value) fetchWeatherData(latitude.value, longitude.value);
+  }
 
   const getLocations = async (locationSearchString: string) => {
     try {
@@ -67,7 +74,8 @@ export const useWeatherStore = defineStore("weather", () => {
       weather.value = await openMeteoService.fetchWeatherData(
         latitude,
         longitude,
-        temperatureUnit.value
+        temperatureUnit.value,
+        windSpeedUnit.value
       );
       weatherConditions.value = parseWeatherCode({
         code: weather.value.current.weather_code,
@@ -86,10 +94,12 @@ export const useWeatherStore = defineStore("weather", () => {
     longitude,
     latitude,
     temperatureUnit,
+    windSpeedUnit,
     weather,
     geocoding,
     weatherConditions,
     toggleTemperatureUnit,
+    setWindSpeedUnit,
     isDay,
     getWeatherByName,
     getWeatherByGeocoding,
