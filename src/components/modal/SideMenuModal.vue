@@ -2,15 +2,15 @@
 import { storeToRefs } from 'pinia';
 import { useCoreStore } from '@/stores/core';
 import { useWeatherStore } from '@/stores/weather';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import CoreModal from '@/components/core/CoreModal.vue';
 import TextToggleSwitch from '@/components/core/TextToggleSwitch.vue';
-import { TemperatureUnits } from '@/utils/constants';
+import { TemperatureUnits, WindSpeedUnits } from '@/utils/constants';
 
 const { openModal, closeModal } = useCoreStore();
 const weatherStore = useWeatherStore();
 
-const { temperatureUnit } = storeToRefs(weatherStore);
+const { temperatureUnit, windSpeedUnit } = storeToRefs(weatherStore);
 
 interface Props {
   menuStyle?: "default" | "glass";
@@ -21,6 +21,7 @@ defineProps<Props>();
 const isOpen = ref(false);
 
 const emit = defineEmits(["close"]);
+const windSpeedModel = ref<WindSpeedUnits>(windSpeedUnit.value);
 
 function close() {
   isOpen.value = false;
@@ -29,6 +30,8 @@ function close() {
     emit('close');
   }, 350)
 }
+
+watch(windSpeedModel, () => weatherStore.setWindSpeedUnit(windSpeedModel.value));
 
 onMounted(() => {
   isOpen.value = true;
@@ -61,10 +64,19 @@ onMounted(() => {
             <label>Temperature Unit</label>
             <TextToggleSwitch
               :is-on="temperatureUnit === TemperatureUnits.FAHRENHEIT"
-              left-text="Celsius"
-              right-text="Fahrenheit"
+              left-text="°C"
+              right-text="°F"
               @toggle="weatherStore.toggleTemperatureUnit"
             />
+          </div>
+          <div class="side-menu-modal__list-item">
+            <label>Wind Speed Unit</label>
+            <select v-model="windSpeedModel">
+              <option>kmh</option>
+              <option>ms</option>
+              <option>mph</option>
+              <option>kn</option>
+            </select>
           </div>
         </div>
       </div>

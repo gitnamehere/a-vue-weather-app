@@ -18,7 +18,8 @@ defineProps<Props>();
   >
     <div class="wind-card__body">
       <h2 class="wind-card__indicator">
-        {{ speed }}mph {{ direction }}°
+        <!-- for some reason openmeteo uses "mp/h" -->
+        {{ speed }} {{ unit === "mp/h" ? "mph" : unit }} {{ direction }}°
       </h2>
     </div>
   </CardItem>

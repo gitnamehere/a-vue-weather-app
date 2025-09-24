@@ -5,3 +5,10 @@ export enum TemperatureUnits {
   FAHRENHEIT = "fahrenheit",
   CELSIUS = "celsius"
 }
+
+export enum WindSpeedUnits {
+  KMH = "kmh",
+  MS = "ms",
+  MPH = "mph",
+  KNOTS = "kn"
+}

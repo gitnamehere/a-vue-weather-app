@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, GEOCODING_API_URL, TemperatureUnits } from "@/utils/constants";
+import { API_URL, GEOCODING_API_URL, TemperatureUnits, WindSpeedUnits } from "@/utils/constants";
 
 export const getLocations = async (locationName: string, count: number): Promise<any[]> => {
   let locations: Object[] = [];
@@ -23,7 +23,8 @@ export const getLocations = async (locationName: string, count: number): Promise
 export const fetchWeatherData = async (
   latitude: number,
   longitude: number,
-  temperatureUnit: TemperatureUnits
+  temperatureUnit: TemperatureUnits,
+  windSpeedUnit: WindSpeedUnits
 ) => {
   const requestUrl =
     `${API_URL}forecast` +
@@ -33,7 +34,7 @@ export const fetchWeatherData = async (
     `&hourly=temperature_2m,weather_code,is_day` +
     `&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset` +
     `&temperature_unit=${temperatureUnit}` +
-    `&wind_speed_unit=mph` +
+    `&wind_speed_unit=${windSpeedUnit}` +
     `&precipitation_unit=inch` +
     `&timezone=auto` +
     `&forecast_days=14` +
