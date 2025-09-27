@@ -23,7 +23,7 @@ function getRouteFromParams() {
   // into a string so that ts doesn't yell at me
   const location = route.params.location.toString();
 
-  if (!location) return;
+  if (!location || route.query?.searched) return;
 
   weatherStore.getWeatherByName(location);
 }
