@@ -31,6 +31,9 @@ const getWeatherBySearch = () => {
     name: "weather",
     params: {
       location: location.value
+    },
+    query: {
+      searched: 'true',
     }
   });
 };
@@ -42,6 +45,9 @@ const getWeatherByLocation = (location: any) => {
     name: "weather",
     params: {
       location: location.name
+    },
+    query: {
+      searched: 'true',
     }
   });
 };
